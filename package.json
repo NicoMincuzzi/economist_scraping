@@ -5,6 +5,8 @@
   "main": "build/server.js",
   "scripts": {
     "start": "tsc && node build/server.js",
+    "build": "npm run lint && tsc -p .",
+    "start:production": "npm run lint && NODE_ENV=production node build/server.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
