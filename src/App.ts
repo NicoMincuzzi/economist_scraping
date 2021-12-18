@@ -6,7 +6,7 @@ import registerRoutes from "./routes";
 export default class App {
 
     private static basePathRoute(request: express.Request, response: express.Response): void {
-        response.json({message: "base path"});
+        response.set("Content-Type", "application/json; charset=utf-8").json({message: "base path"});
     }
 
     public express: express.Application;

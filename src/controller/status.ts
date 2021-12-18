@@ -15,7 +15,9 @@ export default class Status {
                     version: os.release(),
                 },
             };
-            res.status(StatusCodes.OK).send(JSON.stringify(res.locals.data));
+            res.status(StatusCodes.OK)
+                .set("Content-Type", "application/json; charset=utf-8")
+                .send(JSON.stringify(res.locals.data));
         } catch (err) {
             next(err);
         }
