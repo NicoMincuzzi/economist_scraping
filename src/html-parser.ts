@@ -3,15 +3,22 @@ import {v4 as uuidv4} from "uuid";
 import {Economist} from "./model/Economist";
 
 class HtmlParser {
-    private document;
 
-    public parser(page): Economist {
-        this.document = new JSDOM(page).window.document;
-        return new Economist(uuidv4(), this.textContext("h3.ef0oilz0 a"), this.textContext("p.e1smrlcj0"));
+    private static textContext(document, querySelector: string): string {
+        return document.querySelector(querySelector).textContent;
     }
 
-    private textContext(querySelector: string): string {
-        return this.document.querySelector(querySelector).textContent;
+    public parser(page): Economist[] {
+        const articles = [];
+        const document = new JSDOM(page).window.document;
+        const lis = document.querySelectorAll("div.e1yv2jhn0");
+
+        lis.forEach((element) => {
+            const title = HtmlParser.textContext(element, "h3.ef0oilz0 a");
+            const subtitle = HtmlParser.textContext(element, "p.e1smrlcj0");
+            articles.push(new Economist(uuidv4(), title, subtitle));
+        });
+        return articles;
     }
 }
 
