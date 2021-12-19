@@ -12,8 +12,8 @@ class ArticleService {
         this.parser = parser;
     }
 
-    public retrieveAll(): Economist[] {
-        const htmlDom = this.page.retrieve();
+    public async retrieveAll(): Promise<Economist[]> {
+        const htmlDom = await this.page.retrieve();
         return this.parser.run(htmlDom);
     }
 }

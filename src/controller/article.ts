@@ -9,10 +9,12 @@ class Article {
     private static all(request: Request, response: Response, next: NextFunction): void {
         try {
             const articleService = new ArticleService(new EconomistHomepage(), new EconomistParser());
-            const economistArticles = articleService.retrieveAll();
-            response.status(StatusCodes.OK)
-                .set("Content-Type", "application/json; charset=utf-8")
-                .send(JSON.stringify(economistArticles));
+            articleService.retrieveAll().then((economistArticles) => {
+                response.status(StatusCodes.OK)
+                    .set("Content-Type", "application/json; charset=utf-8")
+                    .send(JSON.stringify(economistArticles));
+            });
+
         } catch (err) {
             next(err);
         }
