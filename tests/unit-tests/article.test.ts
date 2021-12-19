@@ -1,6 +1,6 @@
 import {mock} from "jest-mock-extended";
 import {IPage} from "../../src/adapter/page";
-import Article from "../../src/core/article";
+import ArticleService from "../../src/core/articleService";
 import {IParser} from "../../src/core/parser";
 import {Economist} from "../../src/model/economist";
 
@@ -13,7 +13,7 @@ describe("Retrieve info about article in Economist website", () => {
         page.retrieve.mockReturnValue(htmlDom);
         parser.run.calledWith(htmlDom).mockReturnValue([new Economist("ignore", "Title", "subtitle")]);
 
-        const result = new Article(page, parser).retrieveAll();
+        const result = new ArticleService(page, parser).retrieveAll();
 
         expect(result.length).toEqual(1);
         expect(result[0].getTitle).toEqual("Title");

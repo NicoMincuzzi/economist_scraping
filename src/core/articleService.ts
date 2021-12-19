@@ -2,7 +2,7 @@ import {IPage} from "../adapter/page";
 import {Economist} from "../model/economist";
 import {IParser} from "./parser";
 
-class Article {
+class ArticleService {
 
     private page: IPage;
     private parser: IParser;
@@ -18,4 +18,4 @@ class Article {
     }
 }
 
-export default Article;
+export default ArticleService;
