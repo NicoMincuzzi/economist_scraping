@@ -1,12 +1,17 @@
 import {JSDOM} from "jsdom";
+import {v4 as uuidv4} from "uuid";
 import {Economist} from "./model/Economist";
 
 class HtmlParser {
+    private document;
+
     public parser(page): Economist {
-        const dom = new JSDOM(page);
-        const title = dom.window.document.querySelector("h3.ef0oilz0 a").textContent;
-        const subtitle = dom.window.document.querySelector("p.e1smrlcj0").textContent;
-        return new Economist("", title, subtitle);
+        this.document = new JSDOM(page).window.document;
+        return new Economist(uuidv4(), this.textContext("h3.ef0oilz0 a"), this.textContext("p.e1smrlcj0"));
+    }
+
+    private textContext(querySelector: string): string {
+        return this.document.querySelector(querySelector).textContent;
     }
 }
 
