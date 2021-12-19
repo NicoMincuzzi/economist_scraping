@@ -1,8 +1,8 @@
 import http from "http";
 import {AddressInfo} from "net";
-import App from "./app";
+import App from "../app";
 
-import logger from "./logger";
+import logger from "../logger";
 
 const port = process.env.PORT || 3000;
 

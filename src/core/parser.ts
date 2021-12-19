@@ -1,0 +1,3 @@
+interface IParser {
+    run(htmlPage);
+}

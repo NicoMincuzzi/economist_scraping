@@ -1,8 +1,8 @@
 import {JSDOM} from "jsdom";
 import {v4 as uuidv4} from "uuid";
-import {Economist} from "./model/economist";
+import {Economist} from "../model/economist";
 
-class HtmlParser {
+class EconomistParser implements IParser {
 
     private static textContext(document, querySelector: string): string {
         if (document.querySelector(querySelector) != null) {
@@ -11,18 +11,18 @@ class HtmlParser {
         return "N/A";
     }
 
-    public parser(page): Economist[] {
+    public run(page): Economist[] {
         const articles = [];
         const document = new JSDOM(page).window.document;
         const lis = document.getElementById("content").querySelectorAll("div.e1yv2jhn0");
 
         lis.forEach((element) => {
-            const title = HtmlParser.textContext(element, "h3.ef0oilz0 a");
-            const subtitle = HtmlParser.textContext(element, "p.e1smrlcj0");
+            const title = EconomistParser.textContext(element, "h3.ef0oilz0 a");
+            const subtitle = EconomistParser.textContext(element, "p.e1smrlcj0");
             articles.push(new Economist(uuidv4(), title, subtitle));
         });
         return articles;
     }
 }
 
-export default HtmlParser;
+export default EconomistParser;

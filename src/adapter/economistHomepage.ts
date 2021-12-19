@@ -1,7 +1,7 @@
 import logger from "../logger";
-import {IPage} from "./ipage";
+import {Page} from "./page";
 
-class EconomistHomepage implements IPage {
+class EconomistHomepage implements Page {
 
     public async retrieve() {
         const axios = require("axios");
