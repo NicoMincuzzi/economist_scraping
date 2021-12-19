@@ -1,7 +1,7 @@
 import logger from "../logger";
 import {IPage} from "./ipage";
 
-class Economist implements IPage {
+class EconomistHomepage implements IPage {
 
     public async retrieve() {
         const axios = require("axios");
@@ -17,4 +17,4 @@ class Economist implements IPage {
 
 }
 
-export default Economist;
+export default EconomistHomepage;
