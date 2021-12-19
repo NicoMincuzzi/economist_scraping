@@ -1,6 +1,6 @@
 import * as express from "express";
 import {StatusCodes} from "http-status-codes";
-import ApiError from "./ApiError";
+import ApiError from "./apiError";
 
 const addErrorHandler = (err: ApiError,
                          req: express.Request,

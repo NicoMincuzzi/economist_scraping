@@ -2,7 +2,7 @@ import express from "express";
 import {StatusCodes} from "http-status-codes";
 import "jest";
 import request from "supertest";
-import WebServer from "./web-server";
+import WebServer from "./webServer";
 
 describe("status endpoints integration tests", () => {
     let app: express.Application;

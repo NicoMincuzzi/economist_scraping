@@ -1,6 +1,6 @@
 import express from "express";
 import * as http from "http";
-import addErrorHandler from "./error-handler";
+import addErrorHandler from "./errorHandler";
 import registerRoutes from "./routes";
 
 export default class App {

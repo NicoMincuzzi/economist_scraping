@@ -1,6 +1,6 @@
 import http from "http";
 import {AddressInfo} from "net";
-import App from "./App";
+import App from "./app";
 
 import logger from "./logger";
 

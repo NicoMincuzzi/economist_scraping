@@ -1,5 +1,5 @@
 import express from "express";
-import App from "../../src/App";
+import App from "../../src/app";
 
 class WebServer {
     public static appInstance: express.Application;

@@ -1,5 +1,5 @@
 import "jest";
-import EconomistHomepage from "../../src/adapter/economist-homepage";
+import EconomistHomepage from "../../src/adapter/economistHomepage";
 import {IPage} from "../../src/adapter/ipage";
 
 describe("external provider integration tests", () => {

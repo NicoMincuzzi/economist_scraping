@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import HtmlParser from "../../src/html-parser";
-import {Economist} from "../../src/model/Economist";
+import HtmlParser from "../../src/htmlParser";
+import {Economist} from "../../src/model/economist";
 
 describe("economist home page parser", () => {
 
