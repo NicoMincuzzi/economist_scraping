@@ -1,6 +1,7 @@
 import {JSDOM} from "jsdom";
 import {v4 as uuidv4} from "uuid";
 import {Economist} from "../model/economist";
+import {IParser} from "./parser";
 
 class EconomistParser implements IParser {
 
