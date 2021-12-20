@@ -1,41 +1,48 @@
+import {Application, Router} from "express";
 import http from "http";
 import {AddressInfo} from "net";
-import App from "../app";
-
+import Article from "../controller/article";
+import Status from "../controller/status";
 import logger from "../logger";
+import addErrorHandler from "./errorHandler";
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-const app: App = new App();
-let server: http.Server;
+export default class Server {
+    private readonly app: Application;
+    private readonly httpServer: http.Server;
 
-function serverError(error: NodeJS.ErrnoException): void {
+    constructor(app: Application) {
+        this.app = app;
+        this.httpServer = http.createServer(this.app);
+    }
+
+    public async init(): Promise<http.Server> {
+        this.app.set("port", PORT);
+
+        this.routes();
+        this.app.use(addErrorHandler);
+        return this.httpServer;
+    }
+
+    private routes(): void {
+        const router = Router();
+
+        this.app.use("/api/v1", router);
+        router.get("/status", new Status().getSystemInfo);
+        router.get("/articles", new Article().all);
+        router.get("/articles/:articleId", new Article().byId);
+    }
+}
+
+export function serverError(error: NodeJS.ErrnoException): void {
     if (error.syscall !== "listen") {
         throw error;
     }
     throw error;
 }
 
-function serverListening(): void {
-    const addressInfo: AddressInfo = server.address() as AddressInfo;
+export function serverListening(address, port): void {
+    const addressInfo: AddressInfo = address as AddressInfo;
     logger.info(`Listening on ${addressInfo.address}:${port}`);
 }
-
-app.init().then(() => {
-    app.express.set("port", port);
-
-    server = app.httpServer; // http.createServer(App);
-    server.on("error", serverError);
-    server.on("listening", serverListening);
-    server.listen(port);
-}).catch((err: Error) => {
-    logger.error(err.name);
-    logger.error(err.message);
-    logger.error(err.stack);
-});
-
-process.on("unhandledRejection", (reason: Error) => {
-    logger.error("Unhandled Promise Rejection: reason:", reason.message);
-    logger.error(reason.stack);
-    // application specific logging, throwing an error, or other logic here
-});

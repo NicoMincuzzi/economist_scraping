@@ -1,4 +1,4 @@
-import {Application, NextFunction, Request, Response, Router} from "express";
+import {NextFunction, Request, Response} from "express";
 import {StatusCodes} from "http-status-codes";
 import EconomistHomepage from "../adapter/economistHomepage";
 import ArticleService from "../core/articleService";
@@ -6,7 +6,7 @@ import EconomistParser from "../core/economistParser";
 
 class Article {
 
-    private static all(request: Request, response: Response, next: NextFunction): void {
+    public all(request: Request, response: Response, next: NextFunction): void {
         try {
             const articleService = new ArticleService(new EconomistHomepage(), new EconomistParser());
             articleService.retrieveAll().then((economistArticles) => {
@@ -14,23 +14,22 @@ class Article {
                     .set("Content-Type", "application/json; charset=utf-8")
                     .send(JSON.stringify(economistArticles));
             });
-
         } catch (err) {
             next(err);
         }
     }
 
-    private readonly router: Router;
-    private readonly express: Application;
-
-    constructor(express: Application) {
-        this.router = Router();
-        this.express = express;
-    }
-
-    public register(): void {
-        this.express.use("/api/v1", this.router);
-        this.router.get("/articles", Article.all);
+    public byId(request: Request, response: Response, next: NextFunction): void {
+        try {
+            const articleService = new ArticleService(new EconomistHomepage(), new EconomistParser());
+            articleService.retrieveById(request.params.articleId).then((economistArticle) => {
+                response.status(StatusCodes.OK)
+                    .set("Content-Type", "application/json; charset=utf-8")
+                    .send(JSON.stringify(economistArticle));
+            });
+        } catch (err) {
+            next(err);
+        }
     }
 }
 

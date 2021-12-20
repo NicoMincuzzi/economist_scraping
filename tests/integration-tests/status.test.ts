@@ -11,17 +11,9 @@ describe("status endpoints integration tests", () => {
         app = await WebServer.run();
     });
 
-    it("check base path", async () => {
+    it("verify health check /status endpoint", async () => {
         await request(app)
-            .get("/api/status/system")
-            .set("Accept", "application/json")
-            .expect("Content-Type", "application/json; charset=utf-8")
-            .expect(StatusCodes.OK);
-    });
-
-    it("retrieve system info by /system endpoint", async () => {
-        await request(app)
-            .get("/api/status/system")
+            .get("/api/v1/status")
             .set("Accept", "application/json")
             .expect(StatusCodes.OK);
     });

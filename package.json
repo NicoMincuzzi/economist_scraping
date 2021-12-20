@@ -2,11 +2,11 @@
   "name": "economist_scraping",
   "version": "1.0.0",
   "description": "",
-  "main": "build/server.js",
+  "main": "build/app.js",
   "scripts": {
-    "start": "tsc && node build/server.js",
+    "start": "tsc && node build/app.js",
     "build": "npm run lint && tsc -p .",
-    "start:production": "npm run lint && NODE_ENV=production node build/server.js",
+    "start:production": "npm run lint && NODE_ENV=production node build/app.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },

@@ -1,5 +1,5 @@
 import express from "express";
-import App from "../../src/app";
+import Server from "../../src/server/server";
 
 class WebServer {
     public static appInstance: express.Application;
@@ -8,9 +8,9 @@ class WebServer {
         if (this.appInstance) {
             return this.appInstance;
         }
-        const app = new App();
-        await app.init();
-        this.appInstance = app.express;
+        this.appInstance = express();
+        const server = new Server(this.appInstance);
+        await server.init();
         return this.appInstance;
     }
 }

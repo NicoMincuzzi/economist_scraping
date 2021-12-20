@@ -1,31 +1,15 @@
-import express from "express";
-import * as http from "http";
-import addErrorHandler from "./server/errorHandler";
-import registerRoutes from "./server/routes";
+import express, {Express} from "express";
+import Server, {serverError, serverListening} from "./server/server";
 
-export default class App {
+const PORT = process.env.PORT || 3000;
 
-    private static basePathRoute(request: express.Request, response: express.Response): void {
-        response.set("Content-Type", "application/json; charset=utf-8").json({message: "base path"});
-    }
+const app: Express = express();
 
-    public express: express.Application;
-
-    public httpServer: http.Server;
-
-    public async init(): Promise<void> {
-        this.express = express();
-        this.httpServer = http.createServer(this.express);
-        this.routes();
-        this.addErrorHandler();
-    }
-
-    private routes(): void {
-        this.express.get("/", App.basePathRoute);
-        registerRoutes(this.express);
-    }
-
-    private addErrorHandler(): void {
-        this.express.use(addErrorHandler);
-    }
-}
+const server = new Server(app);
+server.init().then((httpServer) => {
+    httpServer.on("error", serverError);
+    httpServer.on("listening", () => {
+        serverListening(httpServer.address(), PORT);
+    });
+    httpServer.listen(PORT);
+});

@@ -16,6 +16,10 @@ class ArticleService {
         const htmlDom = await this.page.retrieve();
         return this.parser.run(htmlDom);
     }
+
+    public retrieveById(articleId: string) {
+        return undefined;
+    }
 }
 
 export default ArticleService;
