@@ -1,7 +1,7 @@
 import {Application, Router} from "express";
 import http from "http";
 import {AddressInfo} from "net";
-import Article from "../controller/article";
+import ArticleController from "../controller/articleController";
 import Status from "../controller/status";
 import logger from "../logger";
 import addErrorHandler from "./errorHandler";
@@ -30,8 +30,8 @@ export default class Server {
 
         this.app.use("/api/v1", router);
         router.get("/status", new Status().getSystemInfo);
-        router.get("/articles", new Article().all);
-        router.get("/articles/:articleId", new Article().byId);
+        router.get("/articles", new ArticleController().all);
+        router.get("/articles/:articleId", new ArticleController().byId);
     }
 }
 

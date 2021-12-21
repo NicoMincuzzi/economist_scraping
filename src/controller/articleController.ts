@@ -3,12 +3,14 @@ import {StatusCodes} from "http-status-codes";
 import EconomistHomepage from "../adapter/economistHomepage";
 import ArticleService from "../core/articleService";
 import EconomistParser from "../core/economistParser";
+import ArticleDbRepository from "../repository/articleDbRepository";
 
-class Article {
-
+class ArticleController {
     public all(request: Request, response: Response, next: NextFunction): void {
         try {
-            const articleService = new ArticleService(new EconomistHomepage(), new EconomistParser());
+            const articleService = new ArticleService(new ArticleDbRepository(),
+                new EconomistHomepage(),
+                new EconomistParser());
             articleService.retrieveAll().then((economistArticles) => {
                 response.status(StatusCodes.OK)
                     .set("Content-Type", "application/json; charset=utf-8")
@@ -21,7 +23,9 @@ class Article {
 
     public byId(request: Request, response: Response, next: NextFunction): void {
         try {
-            const articleService = new ArticleService(new EconomistHomepage(), new EconomistParser());
+            const articleService = new ArticleService(new ArticleDbRepository(),
+                new EconomistHomepage(),
+                new EconomistParser());
             articleService.retrieveById(request.params.articleId).then((economistArticle) => {
                 response.status(StatusCodes.OK)
                     .set("Content-Type", "application/json; charset=utf-8")
@@ -33,4 +37,4 @@ class Article {
     }
 }
 
-export default Article;
+export default ArticleController;
