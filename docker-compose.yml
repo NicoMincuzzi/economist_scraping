@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: economist
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-initdb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-mongo-init.js:ro
