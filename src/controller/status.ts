@@ -4,8 +4,7 @@ import * as os from "os";
 import * as process from "process";
 
 export default class Status {
-
-    public getSystemInfo(req: Request, res: Response, next: NextFunction): void {
+    public health(req: Request, res: Response, next: NextFunction): void {
         try {
             res.locals.data = {
                 cpus: os.cpus(),

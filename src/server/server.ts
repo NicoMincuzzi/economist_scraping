@@ -29,7 +29,7 @@ export default class Server {
         const router = Router();
 
         this.app.use("/api/v1", router);
-        router.get("/status", new Status().getSystemInfo);
+        router.get("/status", new Status().health);
         router.get("/articles", new ArticleController().all);
         router.get("/articles/:articleId", new ArticleController().byId);
     }

@@ -4,7 +4,6 @@ import {Economist} from "../model/economist";
 import {IParser} from "./parser";
 
 class EconomistParser implements IParser {
-
     private static textContext(document, querySelector: string): string {
         if (document.querySelector(querySelector) != null) {
             return document.querySelector(querySelector).textContent;
