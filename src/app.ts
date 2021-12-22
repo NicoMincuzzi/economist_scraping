@@ -1,5 +1,6 @@
 import express, {Express} from "express";
-import MongoDatabase from "./adapter/database";
+import mongoose from "mongoose";
+import logger from "./logger";
 import Server, {serverError, serverListening} from "./server/server";
 
 const PORT = process.env.PORT || 3000;
@@ -7,13 +8,15 @@ const db: string = "mongodb://admin:example@localhost:27017/economist";
 
 const app: Express = express();
 
-new MongoDatabase(db).init();
+mongoose.connect(db, () => {
+    logger.info(`Successfully connected to ${db}`);
 
-new Server(app).init().then((httpServer) => {
-    httpServer.on("error", serverError);
-    httpServer.on("listening", () => {
-        serverListening(httpServer.address(), PORT);
+    new Server(app).init().then((httpServer) => {
+        httpServer.on("error", serverError);
+        httpServer.on("listening", () => {
+            serverListening(httpServer.address(), PORT);
+        });
+
+        httpServer.listen(PORT);
     });
-
-    httpServer.listen(PORT);
 });
