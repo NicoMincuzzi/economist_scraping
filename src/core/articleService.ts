@@ -1,4 +1,5 @@
 import {IPage} from "../adapter/page";
+import logger from "../logger";
 import {Economist} from "../model/economist";
 import {IRepository} from "../repository/repository";
 import {IParser} from "./parser";
@@ -14,15 +15,28 @@ class ArticleService {
         this.parser = parser;
     }
 
-    public async retrieveAll(): Promise<Economist[]> {
+    public async createAndRetrieveAll(): Promise<Economist[]> {
         const htmlDom = await this.page.retrieve();
         const newsItems: Economist[] = this.parser.run(htmlDom);
-        this.repository.creatAll(newsItems);
+        this.repository.persistAll(newsItems);
         return newsItems;
     }
 
-    public retrieveById(articleId: string) {
-        return undefined;
+    public retrieveAll(): Economist[] {
+        this.repository.readAll().then((articles) => {
+            return articles.map((article) => {
+                Economist.from(article);
+            });
+
+        });
+        return;
+    }
+
+    public retrieveById(articleId: string): Promise<Economist> {
+        return this.repository.readById(articleId).then((article) => {
+            logger.info("Read Article by Id: %s", articleId);
+            return new Economist(article.articleId, article.title, article.subtitle);
+        });
     }
 }
 

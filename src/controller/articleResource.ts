@@ -5,13 +5,13 @@ import ArticleService from "../core/articleService";
 import EconomistParser from "../core/economistParser";
 import ArticleDbRepository from "../repository/articleDbRepository";
 
-class ArticleController {
+class ArticleResource {
     public all(request: Request, response: Response, next: NextFunction): void {
         try {
             const articleService = new ArticleService(new ArticleDbRepository(),
                 new EconomistHomepage(),
                 new EconomistParser());
-            articleService.retrieveAll().then((economistArticles) => {
+            articleService.createAndRetrieveAll().then((economistArticles) => {
                 response.status(StatusCodes.OK)
                     .set("Content-Type", "application/json; charset=utf-8")
                     .send(JSON.stringify(economistArticles));
@@ -37,4 +37,4 @@ class ArticleController {
     }
 }
 
-export default ArticleController;
+export default ArticleResource;

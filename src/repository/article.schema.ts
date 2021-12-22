@@ -1,6 +1,6 @@
 import {Document, model, Schema} from "mongoose";
 
-interface IArticle extends Document {
+export interface IArticle extends Document {
     articleId: string;
     title: string;
     subtitle: string;

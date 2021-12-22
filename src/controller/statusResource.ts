@@ -3,7 +3,7 @@ import {StatusCodes} from "http-status-codes";
 import * as os from "os";
 import * as process from "process";
 
-export default class Status {
+export default class StatusResource {
     public health(req: Request, res: Response, next: NextFunction): void {
         try {
             res.locals.data = {

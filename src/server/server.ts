@@ -1,8 +1,8 @@
 import {Application, Router} from "express";
 import http from "http";
 import {AddressInfo} from "net";
-import ArticleController from "../controller/articleController";
-import Status from "../controller/status";
+import ArticleResource from "../controller/articleResource";
+import StatusResource from "../controller/statusResource";
 import logger from "../logger";
 import addErrorHandler from "./errorHandler";
 
@@ -29,9 +29,9 @@ export default class Server {
         const router = Router();
 
         this.app.use("/api/v1", router);
-        router.get("/status", new Status().health);
-        router.get("/articles", new ArticleController().all);
-        router.get("/articles/:articleId", new ArticleController().byId);
+        router.get("/status", new StatusResource().health);
+        router.get("/articles", new ArticleResource().all);
+        router.get("/articles/:articleId", new ArticleResource().byId);
     }
 }
 
