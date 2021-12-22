@@ -1,5 +1,5 @@
 import {Economist} from "../model/economist";
-import Article, {IArticle} from "./article.schema";
+import Article, {IArticle} from "../model/article.schema";
 import {IRepository} from "./repository";
 
 class ArticleDbRepository implements IRepository {
@@ -19,11 +19,7 @@ class ArticleDbRepository implements IRepository {
     }
 
     public async readById(articleId: string): Promise<IArticle> {
-        try {
-            return await Article.findOne({articleId: `${articleId}`});
-        } catch (ex) {
-            throw new Error(ex);
-        }
+        return await Article.findOne({articleId: `${articleId}`});
     }
 }
 

@@ -1,9 +1,8 @@
-import Article, {IArticle} from "../repository/article.schema";
+import Article, {IArticle} from "./article.schema";
 
 export class Economist {
-
     public static from(article: IArticle) {
-        return new Economist(article.articleId, article.subtitle, article.title);
+        return new Economist(article.articleId, article.title, article.subtitle,);
     }
 
     private readonly id: string;
@@ -14,6 +13,10 @@ export class Economist {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
+    }
+
+    get getId(): string {
+        return this.id;
     }
 
     get getTitle(): string {

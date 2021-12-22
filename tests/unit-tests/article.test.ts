@@ -18,8 +18,6 @@ describe("Retrieve info about article in Economist website", () => {
 
         await new ArticleService(repository, page, parser).createAndRetrieveAll().then((result) => {
             expect(result.length).toEqual(1);
-            expect(result[0].getTitle).toEqual("Title");
-            expect(result[0].getSubtitle).toEqual("subtitle");
         });
     });
 });

@@ -15,21 +15,21 @@ class ArticleService {
         this.parser = parser;
     }
 
-    public async createAndRetrieveAll(): Promise<Economist[]> {
+    public async createAndRetrieveAll(): Promise<string[]> {
         const htmlDom = await this.page.retrieve();
         const newsItems: Economist[] = this.parser.run(htmlDom);
         this.repository.persistAll(newsItems);
-        return newsItems;
+        return newsItems.map((newItem) => {
+            return newItem.getId;
+        });
     }
 
-    public retrieveAll(): Economist[] {
-        this.repository.readAll().then((articles) => {
+    public retrieveAll(): Promise<Economist[]> {
+        return this.repository.readAll().then((articles) => {
             return articles.map((article) => {
-                Economist.from(article);
+                return Economist.from(article);
             });
-
         });
-        return;
     }
 
     public retrieveById(articleId: string): Promise<Economist> {
