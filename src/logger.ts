@@ -1,19 +1,24 @@
 import {existsSync, mkdirSync} from "fs";
-import {Logger} from "winston";
-import winston = require("winston");
+import winston, {format, Logger} from "winston";
 
-const logDir = "./logs";
+const {combine, splat, timestamp, printf, align} = format;
 
-if (!existsSync(logDir)) {
-    mkdirSync(logDir);
+if (!existsSync("./logs")) {
+    mkdirSync("./logs");
 }
 
 const logger: Logger = winston.createLogger({
-    format: winston.format.json(),
+    format: combine(
+        format.colorize(),
+        splat(),
+        timestamp(),
+        align(),
+        printf((info) => `[${info.level}]: ${info.message} `),
+    ),
     level: "info",
     transports: [
-        new winston.transports.File({filename: `${logDir}/error.log`, level: "error"}),
-        new winston.transports.File({filename: `${logDir}/combined.log`}),
+        new winston.transports.File({filename: `./logs/error.log`, level: "error"}),
+        new winston.transports.File({filename: `./logs/combined.log`}),
     ],
 });
 
