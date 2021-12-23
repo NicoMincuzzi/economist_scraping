@@ -8,7 +8,7 @@ const db: string = "mongodb://admin:example@localhost:27017/economist";
 
 const app: Express = express();
 
-mongoose.connect(db, () => {
+mongoose.connect(db).then(() => {
     logger.info(`Successfully connected to ${db}`);
 
     new Server(app).init().then((httpServer) => {
@@ -19,4 +19,10 @@ mongoose.connect(db, () => {
 
         httpServer.listen(PORT);
     });
-});
+}).catch(
+    (error) => {
+        if (error) {
+            logger.error(`Error connecting to database.`);
+        }
+    },
+);
