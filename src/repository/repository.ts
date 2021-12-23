@@ -1,5 +1,5 @@
-import {Economist} from "../model/economist";
 import {IArticle} from "../model/article.schema";
+import {Economist} from "../model/economist";
 
 export interface IRepository {
     persist(newsItem: Economist): void;

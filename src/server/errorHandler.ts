@@ -4,14 +4,14 @@ import ApiError from "./apiError";
 
 const addErrorHandler = (error: ApiError, request: Request, response: Response, next: NextFunction): void => {
     if (error) {
-        const status: number = error.status || INTERNAL_SERVER_ERROR;
+        const status: number = error.getStatus || INTERNAL_SERVER_ERROR;
         const body: any = {
-            fields: error.fields,
+            fields: error.getFields,
             message: error.message || "An error occurred during the request.",
             name: error.name,
         };
 
-        response.status(status).set("Content-Type", "application/json; charset=utf-8").json(JSON.stringify(body));
+        response.status(status).set("Content-Type", "application/json; charset=utf-8").json(body);
     }
     next();
 };

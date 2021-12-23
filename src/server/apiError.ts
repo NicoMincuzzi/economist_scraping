@@ -1,20 +1,16 @@
-export interface IError {
-    status: number;
-    fields: {
-        name: {
-            message: string;
-        };
-    };
-    message: string;
-    name: string;
-}
+class ApiError extends Error {
+    get getStatus() {
+        return this.status;
+    }
 
-class ApiError extends Error implements IError {
-    public status = 500;
+    get getFields() {
+        return this.fields;
+    }
 
-    public fields: { name: { message: string } };
+    private readonly status;
+    private fields: { name: { message: string } };
 
-    constructor(msg: string, statusCode: number, name: string = "ApiError") {
+    constructor(msg: string = "Generic Error", statusCode: number = 500, name: string = "ApiError") {
         super();
         this.message = msg;
         this.status = statusCode;

@@ -1,5 +1,5 @@
-import {Economist} from "../model/economist";
 import Article, {IArticle} from "../model/article.schema";
+import {Economist} from "../model/economist";
 import {IRepository} from "./repository";
 
 class ArticleDbRepository implements IRepository {

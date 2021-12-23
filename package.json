@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node build/app.js",
     "build": "npm run lint && tsc -p .",
-    "start:production": "npm run lint && NODE_ENV=production node build/app.js",
+    "debug": "node --inspect server.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },

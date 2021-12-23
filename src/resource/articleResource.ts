@@ -12,7 +12,7 @@ class ArticleResource {
                 new EconomistHomepage(),
                 new EconomistParser());
             articleService.createAndRetrieveAll().then((economistArticles) => {
-                response.status(StatusCodes.OK)
+                response.status(StatusCodes.CREATED)
                     .set("Content-Type", "application/json; charset=utf-8")
                     .send(JSON.stringify(economistArticles));
             });
