@@ -1,13 +1,16 @@
-FROM risingstack/alpine:3.4-v6.9.4-4.2.0
+FROM node:14 as builder
 
-ENV PORT 3001
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+WORKDIR /home/node/app
 
-EXPOSE 3001
+COPY package*.json ./
+COPY tsconfig.json ./
 
-COPY package.json package.json
+USER node
 RUN npm install
 
-COPY . .
+COPY --chown=node:node . .
 RUN npm run build
 
-CMD ["node", "dist/"]
+EXPOSE 3000
+CMD [ "node", "build/server.js" ]
