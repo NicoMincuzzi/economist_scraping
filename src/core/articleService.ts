@@ -1,7 +1,9 @@
+import {StatusCodes} from "http-status-codes";
 import {IPage} from "../adapter/page";
 import logger from "../logger";
 import {Economist} from "../model/economist";
 import {IRepository} from "../repository/repository";
+import ApiError from "../server/apiError";
 import {IParser} from "./parser";
 
 class ArticleService {
@@ -35,6 +37,10 @@ class ArticleService {
     public retrieveById(articleId: string): Promise<Economist> {
         return this.repository.readById(articleId).then((article) => {
             logger.info("Read Article by Id: %s", articleId);
+            if (article === null) {
+                logger.warn("Item not found with Id: %s", articleId);
+                throw new ApiError("Item not found.", StatusCodes.NOT_FOUND, "NOT_FOUND");
+            }
             return new Economist(article.articleId, article.title, article.subtitle);
         });
     }

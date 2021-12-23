@@ -36,16 +36,15 @@ class ArticleResource {
         }
     }
 
-    public byId(request: Request, response: Response, next: NextFunction): void {
+    public async byId(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
             const articleService = new ArticleService(new ArticleDbRepository(),
                 new EconomistHomepage(),
                 new EconomistParser());
-            articleService.retrieveById(request.params.articleId).then((economistArticle) => {
-                response.status(StatusCodes.OK)
-                    .set("Content-Type", "application/json; charset=utf-8")
-                    .send(JSON.stringify(economistArticle));
-            });
+            const economistArticle = await articleService.retrieveById(request.params.articleId);
+            response.status(StatusCodes.OK)
+                .set("Content-Type", "application/json; charset=utf-8")
+                .send(JSON.stringify(economistArticle));
         } catch (err) {
             next(err);
         }

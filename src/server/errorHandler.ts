@@ -11,7 +11,7 @@ const addErrorHandler = (error: ApiError, request: Request, response: Response, 
             name: error.name,
         };
 
-        response.status(status).json(JSON.stringify(body));
+        response.status(status).set("Content-Type", "application/json; charset=utf-8").json(JSON.stringify(body));
     }
     next();
 };
