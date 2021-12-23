@@ -1,6 +1,6 @@
 import {mock} from "jest-mock-extended";
 import {IPage} from "../../src/adapter/page";
-import ArticleService from "../../src/core/articleService";
+import EconomistService from "../../src/core/economistService";
 import {IParser} from "../../src/core/parser";
 import {Economist} from "../../src/model/economist";
 import {IRepository} from "../../src/repository/repository";
@@ -16,7 +16,7 @@ describe("Retrieve info about article in Economist website", () => {
         page.retrieve.mockReturnValue(htmlDom);
         parser.run.calledWith(htmlDom).mockReturnValue([new Economist("ignore", "Title", "subtitle")]);
 
-        await new ArticleService(repository, page, parser).createAndRetrieveAll().then((result) => {
+        await new EconomistService(repository, page, parser).createAndRetrieveAll().then((result) => {
             expect(result.length).toEqual(1);
         });
     });

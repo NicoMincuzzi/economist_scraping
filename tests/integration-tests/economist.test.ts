@@ -1,7 +1,5 @@
 import express from "express";
-import {StatusCodes} from "http-status-codes";
 import "jest";
-import request from "supertest";
 import EconomistHomepage from "../../src/adapter/economistHomepage";
 import {IPage} from "../../src/adapter/page";
 import WebServer from "./webServer";
@@ -18,12 +16,4 @@ describe("external provider integration tests", () => {
         const result = await page.retrieve();
         expect(result).toContain("<!DOCTYPE html>");
     });
-
-    it("retrieve articles resources by /articles endpoint", async () => {
-        await request(app)
-            .get("/api/v1/articles")
-            .set("Accept", "application/json")
-            .expect(StatusCodes.OK);
-    });
-
 });

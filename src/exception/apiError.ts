@@ -8,13 +8,13 @@ class ApiError extends Error {
     }
 
     private readonly status;
-    private fields: { name: { message: string } };
+    private fields: { code: { message: string } };
 
-    constructor(msg: string = "Generic Error", statusCode: number = 500, name: string = "ApiError") {
+    constructor(msg: string = "Generic Error", statusCode: number = 500, code: string = "GENERIC_ERROR") {
         super();
         this.message = msg;
         this.status = statusCode;
-        this.name = name;
+        this.name = code;
     }
 }
 

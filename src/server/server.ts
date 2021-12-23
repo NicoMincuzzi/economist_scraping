@@ -1,7 +1,7 @@
 import {Application, Router} from "express";
 import http from "http";
 import {AddressInfo} from "net";
-import ArticleResource from "../resource/articleResource";
+import EconomistResource from "../resource/economistResource";
 import StatusResource from "../resource/statusResource";
 import logger from "../logger";
 import addErrorHandler from "./errorHandler";
@@ -30,9 +30,9 @@ export default class Server {
 
         this.app.use("/api/v1", router);
         router.get("/status", new StatusResource().health);
-        router.post("/articles", new ArticleResource().create);
-        router.get("/articles", new ArticleResource().all);
-        router.get("/articles/:articleId", new ArticleResource().byId);
+        router.post("/articles", new EconomistResource().create);
+        router.get("/articles", new EconomistResource().all);
+        router.get("/articles/:articleId", new EconomistResource().byId);
     }
 }
 
