@@ -4,7 +4,7 @@ import logger from "./logger";
 import Server, {serverError, serverListening} from "./server/server";
 
 const PORT = process.env.PORT || 3000;
-const db: string = "mongodb://admin:example@localhost:27017/economist";
+const db: string = "mongodb://admin:example@" + process.env.MONGODB_HOST + ":27017/economist";
 
 const app: Express = express();
 
