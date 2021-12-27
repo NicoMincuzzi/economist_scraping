@@ -72,4 +72,4 @@ For example, you can verify the above endpoint by following cURL commands:
 > 
 > curl -X GET http://localhost:3000/api/v1/articles
 > 
-> curl -X GET http://localhost:3000/api/v1/articles
+> curl -X GET http://localhost:3000/api/v1/articles/<ARTICLE_ID>
