@@ -16,5 +16,5 @@ const ArticleSchema = new Schema<IArticle>({
     title: {type: String, required: true},
 });
 
-const Article = model<IArticle>("Article", ArticleSchema);
-export default Article;
+const ArticleEntity = model<IArticle>("ArticleEntity", ArticleSchema);
+export default ArticleEntity;

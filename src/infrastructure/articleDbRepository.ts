@@ -1,10 +1,10 @@
-import NotFoundError from "../exception/notFoundError";
-import logger from "../logger";
-import Article, {IArticle} from "../model/article.schema";
-import {Economist} from "../model/economist";
-import {IRepository} from "./repository";
+import logger from "./logger";
+import {Economist} from "../domain/economist";
+import NotFoundError from "../domain/notFoundError";
+import ArticleEntity, {IArticle} from "../domain/repository/article.schema";
+import {IArticleRepository} from "../domain/repository/articleRepository";
 
-class EconomistDbRepository implements IRepository {
+class EconomistDbRepository implements IArticleRepository {
     public persist(newsItem: Economist): void {
         const article = newsItem.to();
         article.save();
@@ -21,11 +21,11 @@ class EconomistDbRepository implements IRepository {
     }
 
     public async readAll(): Promise<IArticle[]> {
-        return await Article.find();
+        return await ArticleEntity.find();
     }
 
     public async readById(articleId: string): Promise<IArticle> {
-        const article = await Article.findOne({articleId: `${articleId}`});
+        const article = await ArticleEntity.findOne({articleId: `${articleId}`});
         if (article === null) {
             throw new NotFoundError();
         }

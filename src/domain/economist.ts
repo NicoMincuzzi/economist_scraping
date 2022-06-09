@@ -1,4 +1,4 @@
-import Article, {IArticle} from "./article.schema";
+import ArticleEntity, {IArticle} from "./repository/article.schema";
 
 export class Economist {
     public static from(article: IArticle) {
@@ -28,7 +28,7 @@ export class Economist {
     }
 
     public to() {
-        return new Article({
+        return new ArticleEntity({
             articleId: this.id,
             subtitle: this.subtitle,
             title: this.title,

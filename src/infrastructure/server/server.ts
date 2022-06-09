@@ -1,9 +1,9 @@
 import {Application, Router} from "express";
 import http from "http";
 import {AddressInfo} from "net";
-import EconomistResource from "../resource/economistResource";
-import StatusResource from "../resource/statusResource";
 import logger from "../logger";
+import EconomistResource from "../economistResource";
+import StatusResource from "../statusResource";
 import addErrorHandler from "./errorHandler";
 
 const PORT = process.env.PORT || 3000;

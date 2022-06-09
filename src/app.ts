@@ -1,7 +1,7 @@
 import express, {Express} from "express";
-import mongoose from "mongoose";
-import logger from "./logger";
-import Server, {serverError, serverListening} from "./server/server";
+import * as mongoose from "mongoose";
+import logger from "./infrastructure/logger";
+import Server, {serverError, serverListening} from "./infrastructure/server/server";
 
 const PORT = process.env.PORT || 3000;
 const db: string = "mongodb://admin:example@" + process.env.MONGODB_HOST + ":27017/economist";

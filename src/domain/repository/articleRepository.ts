@@ -1,7 +1,7 @@
-import {IArticle} from "../model/article.schema";
-import {Economist} from "../model/economist";
+import {Economist} from "../economist";
+import {IArticle} from "./article.schema";
 
-export interface IRepository {
+export interface IArticleRepository {
     persist(newsItem: Economist): void;
 
     persistAll(newsItems: Economist[]): void;

@@ -14,7 +14,7 @@ describe("status endpoints integration tests", () => {
     it("verify health check /status endpoint", async () => {
         await request(app)
             .get("/api/v1/status")
-            .set("Accept", "application/json")
+            .set("Accept", "usecase/json")
             .expect(StatusCodes.OK);
     });
 });

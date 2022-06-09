@@ -1,4 +1,4 @@
-# Economist Scraping Assessment
+# Article Scraping Assessment
 
 ## Build and Run with Docker and docker-compose
 
@@ -9,7 +9,7 @@ or, to launch the single commands:
 1. Build Docker image by:
 
 ```shell
-$ docker build --name economist_scraping:latest .
+$ docker build -t economist_scraping:latest .
 ```
 
 2. Run docker-compose command:
@@ -49,12 +49,12 @@ $ npm start
 ## Description
 
 The application provides three different endpoint, in order to retrieve and persist the main info about each article
-from [Economist](https://www.economist.com/)
+from [Article](https://www.economist.com/)
 website and expose them.
 
 In particular:
 
-- Trigger the parser of the Economist homepage, retrieve title and subtitle and persist them
+- Trigger the parser of the Article homepage, retrieve title and subtitle and persist them
     - `POST <HOST>/api/v1/articles`
       
     The above API provides the list of ids of each article.

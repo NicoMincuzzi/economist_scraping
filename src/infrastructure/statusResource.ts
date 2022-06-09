@@ -9,7 +9,7 @@ export default class StatusResource {
                 message: "Healthy",
             };
             res.status(StatusCodes.OK)
-                .set("Content-Type", "application/json; charset=utf-8")
+                .set("Content-Type", "usecase/json; charset=utf-8")
                 .send(JSON.stringify(res.locals.data));
         } catch (err) {
             next(err);

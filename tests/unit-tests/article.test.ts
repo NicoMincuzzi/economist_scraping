@@ -1,22 +1,18 @@
 import {mock} from "jest-mock-extended";
-import {IPage} from "../../src/adapter/page";
-import EconomistService from "../../src/core/economistService";
-import {IParser} from "../../src/core/parser";
-import {Economist} from "../../src/model/economist";
-import {IRepository} from "../../src/repository/repository";
+import CreateArticle from "../../src/usecase/createArticle";
+import {Page} from "../../src/domain/page";
+import {IArticleRepository} from "../../src/domain/repository/articleRepository";
+import {Economist} from "../../src/domain/economist";
 
-describe("Retrieve info about article in Economist website", () => {
+describe("Retrieve info about article in Article website", () => {
 
-    it("retrieve info about all Economist articles", async () => {
-        const repository = mock<IRepository>();
-        const page = mock<IPage>();
-        const parser = mock<IParser>();
-        const htmlDom = `<main id="content"><div class=\"e1yv2jhn0\"><h3 class=\"css-cxz0do ef0oilz0\"><a>Title</a></h3><p class=\"e1smrlcj0\">subtitle</p></div></main>`;
+    it("retrieve info about all articles", async () => {
+        const repository = mock<IArticleRepository>();
+        const page = mock<Page>();
         repository.persistAll([new Economist("123", "Title", "subtitle")]);
-        page.retrieve.mockReturnValue(htmlDom);
-        parser.run.calledWith(htmlDom).mockReturnValue([new Economist("ignore", "Title", "subtitle")]);
+        page.parser.mockResolvedValue([new Economist("ignore", "Title", "subtitle")]);
 
-        await new EconomistService(repository, page, parser).createAndRetrieveAll().then((result) => {
+        await new CreateArticle(repository, page).createAndRetrieveAll().then((result) => {
             expect(result.length).toEqual(1);
         });
     });

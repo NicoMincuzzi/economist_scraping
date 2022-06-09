@@ -1,7 +1,7 @@
 import express from "express";
 import "jest";
-import EconomistHomepage from "../../src/adapter/economistHomepage";
-import {IPage} from "../../src/adapter/page";
+import EconomistNewsPaperAdapter from "../../src/infrastructure/economistNewsPaperAdapter";
+import {INewsPaperAdapter} from "../../src/infrastructure/newsPaperAdapter";
 import WebServer from "./webServer";
 
 describe("external provider integration tests", () => {
@@ -12,8 +12,8 @@ describe("external provider integration tests", () => {
     });
 
     it("check get request to economist website", async () => {
-        const page: IPage = new EconomistHomepage();
-        const result = await page.retrieve();
+        const page: INewsPaperAdapter = new EconomistNewsPaperAdapter();
+        const result = await page.get();
         expect(result).toContain("<!DOCTYPE html>");
     });
 });
