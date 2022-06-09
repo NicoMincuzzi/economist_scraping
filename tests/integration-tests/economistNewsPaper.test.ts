@@ -1,7 +1,7 @@
 import express from "express";
 import "jest";
-import EconomistNewsPaperAdapter from "../../src/infrastructure/economistNewsPaperAdapter";
-import {INewsPaperAdapter} from "../../src/infrastructure/newsPaperAdapter";
+import EconomistNewsPaperAdapter from "../../src/infrastructure/adapter/economistNewsPaperAdapter";
+import {INewsPaperAdapter} from "../../src/domain/newsPaperAdapter";
 import WebServer from "./webServer";
 
 describe("external provider integration tests", () => {

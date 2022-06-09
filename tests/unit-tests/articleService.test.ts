@@ -1,9 +1,9 @@
 import {mock} from "jest-mock-extended";
-import {INewsPaperAdapter} from "../../src/infrastructure/newsPaperAdapter";
-import GetArticle from "../../src/usecase/getArticle";
+import {INewsPaperAdapter} from "../../src/domain/newsPaperAdapter";
+import ShowArticleTitleAndSubtitle from "../../src/usecase/showArticleTitleAndSubtitle";
 import ArticleEntity from "../../src/domain/repository/article.schema";
 import {IArticleRepository} from "../../src/domain/repository/articleRepository";
-import {Economist} from "../../src/domain/economist";
+import {Article} from "../../src/domain/article";
 
 describe("article service", () => {
 
@@ -18,9 +18,9 @@ describe("article service", () => {
         const page = mock<INewsPaperAdapter>();
         repository.readById.calledWith("articleId").mockReturnValue(articleSchema);
 
-        new GetArticle(repository).retrieveById("articleId").then((result) => {
-            expect(result.getTitle).toEqual(new Economist("ignore", "Title", "subtitle").getTitle);
-            expect(result.getSubtitle).toEqual(new Economist("ignore", "Title", "subtitle").getSubtitle);
+        new ShowArticleTitleAndSubtitle(repository).byId("articleId").then((result) => {
+            expect(result.getTitle).toEqual(new Article("ignore", "Title", "subtitle").getTitle);
+            expect(result.getSubtitle).toEqual(new Article("ignore", "Title", "subtitle").getSubtitle);
         });
     });
 
@@ -35,9 +35,9 @@ describe("article service", () => {
         const page = mock<INewsPaperAdapter>();
         repository.readAll.mockReturnValue(articleSchema);
 
-        new GetArticle(repository).retrieveAll().then((result) => {
-            expect(result[0].getTitle).toEqual(new Economist("ignore", "Title", "subtitle").getTitle);
-            expect(result[0].getSubtitle).toEqual(new Economist("ignore", "Title", "subtitle").getSubtitle);
+        new ShowArticleTitleAndSubtitle(repository).all().then((result) => {
+            expect(result[0].getTitle).toEqual(new Article("ignore", "Title", "subtitle").getTitle);
+            expect(result[0].getSubtitle).toEqual(new Article("ignore", "Title", "subtitle").getSubtitle);
         });
     });
 });

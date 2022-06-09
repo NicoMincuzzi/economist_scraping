@@ -1,10 +1,18 @@
 import {JSDOM} from "jsdom";
 import {v4 as uuidv4} from "uuid";
-import {INewsPaperAdapter} from "../infrastructure/newsPaperAdapter";
-import logger from "../infrastructure/logger";
-import {Economist} from "./economist";
+import logger from "../infrastructure/configuration/logger";
+import {Article} from "./article";
+import {INewsPaperAdapter} from "./newsPaperAdapter";
 
 export class Page {
+
+    private static textContext(document, querySelector: string): string {
+        if (document.querySelector(querySelector) != null) {
+            return document.querySelector(querySelector).textContent;
+        }
+        return "N/A";
+    }
+
     private htmlDom;
     private readonly newsPaper: INewsPaperAdapter;
 
@@ -18,7 +26,7 @@ export class Page {
         this.htmlDom = await this.newsPaper.get();
     }
 
-    public async parser(): Promise<Economist[]> {
+    public async parser(): Promise<Article[]> {
         logger.info("Parser the HTML page to retrieve each article.");
         const articles = [];
         const htmlDom = await this.newsPaper.get();
@@ -26,17 +34,10 @@ export class Page {
         const lis = document.getElementById("content").querySelectorAll("div.e1yv2jhn0");
 
         lis.forEach((element) => {
-            const title = this.textContext(element, "h3.ef0oilz0 a");
-            const subtitle = this.textContext(element, "p.e1smrlcj0");
-            articles.push(new Economist(uuidv4(), title, subtitle));
+            const title = Page.textContext(element, "h3.ef0oilz0 a");
+            const subtitle = Page.textContext(element, "p.e1smrlcj0");
+            articles.push(new Article(uuidv4(), title, subtitle));
         });
         return articles;
-    }
-
-    private textContext(document, querySelector: string): string {
-        if (document.querySelector(querySelector) != null) {
-            return document.querySelector(querySelector).textContent;
-        }
-        return "N/A";
     }
 }

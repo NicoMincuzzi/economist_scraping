@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import {mock} from "jest-mock-extended";
-import {INewsPaperAdapter} from "../../src/infrastructure/newsPaperAdapter";
+import {INewsPaperAdapter} from "../../src/domain/newsPaperAdapter";
 import {Page} from "../../src/domain/page";
-import {Economist} from "../../src/domain/economist";
+import {Article} from "../../src/domain/article";
 
 describe("economist home page parser", () => {
 
@@ -13,7 +13,7 @@ describe("economist home page parser", () => {
 
         const result = await new Page(page).parser();
 
-        const expected = new Economist("ignore", "Title", "subtitle");
+        const expected = new Article("ignore", "Title", "subtitle");
         expect(result[0].getTitle).toEqual(expected.getTitle);
         expect(result[0].getSubtitle).toEqual(expected.getSubtitle);
     });

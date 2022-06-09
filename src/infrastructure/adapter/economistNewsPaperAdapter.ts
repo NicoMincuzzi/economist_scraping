@@ -1,5 +1,5 @@
 import axios from "axios";
-import {INewsPaperAdapter} from "./newsPaperAdapter";
+import {INewsPaperAdapter} from "../../domain/newsPaperAdapter";
 
 class EconomistNewsPaperAdapter implements INewsPaperAdapter {
     public async get() {

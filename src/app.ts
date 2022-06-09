@@ -1,6 +1,6 @@
 import express, {Express} from "express";
 import * as mongoose from "mongoose";
-import logger from "./infrastructure/logger";
+import logger from "./infrastructure/configuration/logger";
 import Server, {serverError, serverListening} from "./infrastructure/server/server";
 
 const PORT = process.env.PORT || 3000;

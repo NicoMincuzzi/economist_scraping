@@ -1,8 +1,8 @@
 import ArticleEntity, {IArticle} from "./repository/article.schema";
 
-export class Economist {
+export class Article {
     public static from(article: IArticle) {
-        return new Economist(article.articleId, article.title, article.subtitle,);
+        return new Article(article.articleId, article.title, article.subtitle);
     }
 
     private readonly id: string;

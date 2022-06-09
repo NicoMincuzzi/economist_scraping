@@ -1,22 +1,22 @@
 import {StatusCodes} from "http-status-codes";
-import logger from "../infrastructure/logger";
+import {Article} from "../domain/article";
 import NotFoundError from "../domain/notFoundError";
 import {IArticleRepository} from "../domain/repository/articleRepository";
+import logger from "../infrastructure/configuration/logger";
 import ApiError from "../infrastructure/server/apiError";
-import {Economist} from "../domain/economist";
 
-class GetArticle {
+class ShowArticleTitleAndSubtitle {
     private repository: IArticleRepository;
 
     constructor(repository: IArticleRepository) {
         this.repository = repository;
     }
 
-    public async retrieveAll(): Promise<Economist[]> {
+    public async all(): Promise<Article[]> {
         try {
             const articles = await this.repository.readAll();
             return articles.map((article) => {
-                return Economist.from(article);
+                return Article.from(article);
             });
         } catch (e) {
             logger.error(e);
@@ -24,11 +24,11 @@ class GetArticle {
         }
     }
 
-    public async retrieveById(articleId: string): Promise<Economist> {
+    public async byId(articleId: string): Promise<Article> {
         try {
             logger.info("Read article with id: %s", articleId);
             const article = await this.repository.readById(articleId);
-            return new Economist(article.articleId, article.title, article.subtitle);
+            return new Article(article.articleId, article.title, article.subtitle);
         } catch (e) {
             if (e instanceof NotFoundError) {
                 logger.warn("Item not found with Id: %s", articleId);
@@ -40,4 +40,4 @@ class GetArticle {
     }
 }
 
-export default GetArticle;
+export default ShowArticleTitleAndSubtitle;

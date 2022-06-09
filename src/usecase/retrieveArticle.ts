@@ -1,10 +1,10 @@
-import logger from "../infrastructure/logger";
+import {Article} from "../domain/article";
 import {Page} from "../domain/page";
 import {IArticleRepository} from "../domain/repository/articleRepository";
+import logger from "../infrastructure/configuration/logger";
 import ApiError from "../infrastructure/server/apiError";
-import {Economist} from "../domain/economist";
 
-class CreateArticle {
+class RetrieveArticle {
     private repository: IArticleRepository;
     private page: Page;
 
@@ -13,9 +13,9 @@ class CreateArticle {
         this.page = page;
     }
 
-    public async createAndRetrieveAll(): Promise<string[]> {
+    public async all(): Promise<string[]> {
         try {
-            const newsItems: Economist[] = await this.page.parser();
+            const newsItems: Article[] = await this.page.parser();
 
             logger.info("Persist all retrieved articles.");
             this.repository.persistAll(newsItems);
@@ -29,4 +29,4 @@ class CreateArticle {
     }
 }
 
-export default CreateArticle;
+export default RetrieveArticle;

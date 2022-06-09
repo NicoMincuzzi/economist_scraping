@@ -11,7 +11,7 @@ const addErrorHandler = (error: ApiError, request: Request, response: Response, 
             message: error.message || "An error occurred during the request.",
         };
 
-        response.status(status).set("Content-Type", "usecase/json; charset=utf-8").json(body);
+        response.status(status).set("Content-Type", "application/json; charset=utf-8").json(body);
     }
     next();
 };
