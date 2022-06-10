@@ -18,7 +18,7 @@ $ docker build -t economist_scraping:latest .
 $ docker-compose up -d 
 ```
 
-## Build and Run with your Local Machine
+## Build and Run on your Local Machine
 
 In alternative, you can build and run the application on your local machine.
 
@@ -49,8 +49,7 @@ $ npm start
 ## Description
 
 The application provides three different endpoint, in order to retrieve and persist the main info about each article
-from [Article](https://www.economist.com/)
-website and expose them.
+from [Economist newspaper](https://www.economist.com/) website.
 
 In particular:
 
