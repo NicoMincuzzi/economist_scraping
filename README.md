@@ -1,5 +1,21 @@
 # Article Scraping Assessment
 
+# The assignment
+We would like you to create a web application that shows data collected by the Economist
+website (https://www.economist.com/).
+
+- The data should be provided by an API infrastructure.
+- To earn extra credit you need to provide a scraping system that allows us to retrieve data from the Economist website in realtime.
+
+- The features it should include:
+  - Show in a list of articles from the Economist website
+  - Create an authentication system with a simple signup and login setup
+  - Create an API infrastructure that gives back the list of article and single article information (only to logged-in users)
+
+- Extra credit features:
+  - Website scraping of the Economist website
+  - Put the project online using Heroku or similar
+
 ## Build and Run with Docker and docker-compose
 
 > It is possible execute `./run.sh` script, in order to run the application and configure MongoDb instance to persist the data.
