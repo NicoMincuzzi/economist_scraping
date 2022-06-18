@@ -1,4 +1,4 @@
-# Article Scraping Assessment
+# Economist Scraping Assessment
 
 # The assignment
 We would like you to create a web application that shows data collected by the Economist
